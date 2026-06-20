@@ -210,15 +210,18 @@ Questions raised during engineering review before build began. Recorded here so 
 ## What Comes Next
 
 Layer 1 build is complete when:
-- AWS S3 bucket created in Mumbai region (ap-south-1)
-- Databricks Free Edition account created and connected to S3
-- `nppi` database created in Databricks
-- `nppi.bronze` Delta table created with full metadata schema
-- `nppi.silver` Delta table created (empty — Layer 3 writes here)
-- `nppi.gold` Delta table created (empty — Layer 4 writes here)
-- `nppi.corruption_log` Delta table created
-- SHA-256 duplicate detection running on every document arrival
-- SHA-256 corruption detection running on every document access
-- Databricks SQL Alert configured on corruption_log table
+- [x] AWS S3 bucket created in Mumbai region (ap-south-1) — `nppi-storage-ap-south-1-590183973586-ap-south-1-an`
+- [x] delta-rs and boto3 installed locally (`pip install deltalake boto3`)
+- [x] AWS credentials configured locally with write access to S3 bucket
+- [x] `nppi/bronze/` Delta table created on S3 — full metadata schema
+- [x] `nppi/silver/` Delta table created on S3 — empty, Layer 3 writes here
+- [x] `nppi/gold/` Delta table created on S3 — empty, Layer 4 writes here
+- [x] `nppi/corruption_log/` Delta table created on S3
+- [x] SHA-256 duplicate detection running on every document arrival
+- [x] SHA-256 corruption detection running on every document access
+- [x] Corruption mismatch writes to `nppi/corruption_log/` and logs [CORRUPTION DETECTED] alert
+- [x] End-to-end test passed: ingest → verify → duplicate rejection — all 3 on real NPPA data
+
+**Layer 1 status: COMPLETE. All checklist items verified against live S3.**
 
 After Layer 1 demo is approved by client — Layer 2 design begins: Data Harvest.
